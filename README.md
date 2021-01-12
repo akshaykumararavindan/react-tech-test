@@ -1,5 +1,7 @@
 Please run `yarn` in the project folder to install dependencies. (Before running the start script)
 
+Run this script once dependencies are installed.
+
 ### `yarn start`
 
 Runs the app in the development mode.\
