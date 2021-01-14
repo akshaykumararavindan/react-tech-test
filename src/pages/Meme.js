@@ -11,15 +11,7 @@ const Meme = () => {
   const { setObject } = useContext(PropContext);
 
   const handleClick = (meme) => {
-    // console.log(meme);
-
     setOpenImage({ ...meme });
-    // console.log(openImage);
-  };
-
-  const funcSetProps = (obj) => {
-    // console.log(obj);
-    setObject({ pass });
   };
 
   const getMemes = async () => {
@@ -27,17 +19,14 @@ const Meme = () => {
     const result = await axios("https://api.imgflip.com/get_memes", {
       method: "GET",
     });
-    // console.log(result.data.data);
     setMemes(result.data.data.memes);
-    // console.log(memes[0]);
-    // console.log(object);
-    setLoading(false);
+    if (result) setLoading(false);
   };
 
   useEffect(() => {
     getMemes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    console.log(openImage);
+  }, [openImage]);
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -83,7 +72,7 @@ const Meme = () => {
             <Link
               to="/details"
               onClick={() => {
-                funcSetProps(openImage);
+                setObject({ pass });
               }}
             >
               View more...
