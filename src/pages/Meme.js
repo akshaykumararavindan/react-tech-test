@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import { PropContext } from "../App";
 
 const Meme = () => {
-  const [memes, setMemes] = useState([]);
+  const [memes, setMemes] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [openImage, setOpenImage] = useState({ data: {} });
+  const [openImage, setOpenImage] = useState(null);
   const [pass, setPass] = useState({});
   const { setObject } = useContext(PropContext);
 
   const handleClick = (meme) => {
-    setOpenImage({ ...meme });
+    setOpenImage(meme);
   };
 
   const getMemes = async () => {
@@ -19,21 +19,21 @@ const Meme = () => {
     const result = await axios("https://api.imgflip.com/get_memes", {
       method: "GET",
     });
-    setMemes(result.data.data.memes);
+    setMemes(result);
     if (result) setLoading(false);
   };
 
   useEffect(() => {
     getMemes();
-    console.log(openImage);
-  }, [openImage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <div style={{ display: "flex" }}>
-        {!loading && memes.length !== 0 ? (
+        {!loading && memes ? (
           <>
             <div style={{ float: "left", width: "50%" }}>
-              {memes.map((meme, idx) => (
+              {memes.data.data.memes.map((meme, idx) => (
                 <div key={idx} style={{ border: "1px solid black" }}>
                   <img
                     style={{ width: "auto", height: 300 }}
@@ -61,7 +61,7 @@ const Meme = () => {
         ) : (
           <div style={{ float: "left", width: "50%" }}>loading...</div>
         )}
-        {openImage !== {} ? (
+        {openImage ? (
           <div style={{ float: "right", width: "50%" }}>
             <img
               style={{ width: "auto", height: 300, float: "right" }}

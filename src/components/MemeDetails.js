@@ -58,7 +58,7 @@ const MemeDetails = () => {
       ) : (
         <div style={{ margin: "auto", justifyContent: "center", width: "50%" }}>
           <Link to="/">Go Back</Link>
-          Hello
+          Please go back to select an image.
         </div>
       )}
     </>
